@@ -9,7 +9,8 @@
   flex-direction: column;
 }
 .button {
-  background: darkseagreen;
+  background: steelblue;
+  color: white;
   border-radius: 20px;
   padding: 8px 10px;
   font-size: 20px;
@@ -21,11 +22,11 @@
 .row {
   list-style-type: none;
   font-size: 30px;
-  display: flex;
-  justify-content: space-evenly;
-  width: 50%;
+  display: grid;
+  grid-template: 1fr / repeat(7, 60px);
   margin: 10px 0;
   padding: 0;
+  height: 100px;
 }
 
 .item {

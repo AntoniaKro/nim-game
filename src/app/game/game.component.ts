@@ -1,38 +1,64 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 
 @Component({
   selector: 'game-component',
   templateUrl: '../game/game.component.html',
   styleUrls: ['../game/game.component.css']
 })
-export class GameComponent {
-  row1: number[] = [1];
-  row2: number[] = [1, 1, 1];
-  row3: number[] = [1, 1, 1, 1, 1];
-  row4: number[] = [1, 1, 1, 1, 1, 1, 1];
-
+export class GameComponent implements DoCheck {
+  items: number[][] = [[1], [1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]];
+  counter: number = 3;
+  player: string = 'You';
   constructor() {}
+  ngDoCheck() {
+    if ([].concat(...this.items).reduce((acc, curr) => acc + curr) === 1) {
+      window.alert(
+        this.player === 'You' ? 'You won' : 'You lost. The computer won'
+      );
+      this.handleReset();
+    } else if (this.counter === 0) {
+      this.computerTurn();
+      this.counter = 3;
+      window.alert('Computer made move. Your turn');
+    } else {
+      return;
+    }
+  }
+  computerTurn() {
+    let row: number = Math.round(Math.random() * 3);
+    let amount: number = Math.round(Math.random() * (3 - 1) + 1);
+    if (
+      this.items[`${row}`].length !== 0 &&
+      this.items[`${row}`].length >= amount
+    ) {
+      this.player = 'Computer';
+      for (var i = 0; i <= amount; i++) {
+        this.items[`${row}`].pop();
+      }
+      this.counter = 3;
+    } else {
+      this.computerTurn();
+    }
+  }
 
   handleComputerClick() {
-    console.log('computer');
-  }
-  handleResetClick() {
-    this.row1 = [1];
-    this.row2 = [1, 1, 1];
-    this.row3 = [1, 1, 1, 1, 1];
-    this.row4 = [1, 1, 1, 1, 1, 1, 1];
+    this.player = 'Computer';
+    this.computerTurn();
+    this.counter = 3;
   }
 
-  handleClick1(index) {
-    this.row1 = [...this.row1.slice(0, index), ...this.row1.slice(index + 1)];
+  handleReset() {
+    this.player = 'You';
+    this.items = [[1], [1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]];
+    this.counter = 3;
   }
-  handleClick2(index) {
-    this.row2 = [...this.row2.slice(0, index), ...this.row2.slice(index + 1)];
-  }
-  handleClick3(index) {
-    this.row3 = [...this.row3.slice(0, index), ...this.row3.slice(index + 1)];
-  }
-  handleClick4(index) {
-    this.row4 = [...this.row4.slice(0, index), ...this.row4.slice(index + 1)];
+
+  handlePlayerClick(row, index) {
+    this.player = 'You';
+    this.items[`${row}`] = [
+      ...this.items[`${row}`].slice(0, index),
+      ...this.items[`${row}`].slice(index + 1)
+    ];
+    this.counter = this.counter - 1;
   }
 }

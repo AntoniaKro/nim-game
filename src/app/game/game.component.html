@@ -2,42 +2,43 @@
 <section class="items-wrapper">
   <ul class="row">
     <li
-      (click)="handleClick1(i)"
+      (click)="handlePlayerClick(0, i)"
       class="item"
-      *ngFor="let item of row1; let i = index"
+      *ngFor="let item of items[0]; let i = index"
     >
-      <i class="fas fa-carrot"></i>
+      <i class="fas fa-paperclip"></i>
     </li>
   </ul>
   <ul class="row">
     <li
-      (click)="handleClick2(i)"
+      (click)="handlePlayerClick(1, i)"
       class="item"
-      *ngFor="let item of row2; let i = index"
+      *ngFor="let item of items[1]; let i = index"
     >
-      <i class="fas fa-carrot"></i>
+      <i class="fas fa-paperclip"></i>
     </li>
   </ul>
   <ul class="row">
     <li
-      (click)="handleClick3(i)"
+      (click)="handlePlayerClick(2, i)"
       class="item"
-      *ngFor="let item of row3; let i = index"
+      *ngFor="let item of items[2]; let i = index"
     >
-      <i class="fas fa-carrot"></i>
+      <i class="fas fa-paperclip"></i>
     </li>
   </ul>
   <ul class="row">
     <li
-      (click)="handleClick4(i)"
+      (click)="handlePlayerClick(3, i)"
       class="item"
-      *ngFor="let item of row4; let i = index"
+      *ngFor="let item of items[3]; let i = index"
     >
-      <i class="fas fa-carrot"></i>
+      <i class="fas fa-paperclip"></i>
     </li>
   </ul>
 </section>
 <section class="buttons-wrapper">
-  <div (click)="handleComputerClick()" class="button">Computers turn</div>
-  <div (click)="handleResetClick()" class="button">Reset</div>
+  <div class="button">Counter: {{ counter }}</div>
+  <div (click)="handleComputerClick()" class="button">Computers Turn</div>
+  <div (click)="handleReset()" class="button">Reset</div>
 </section>
