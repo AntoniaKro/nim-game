@@ -1,0 +1,41 @@
+.buttons-wrapper {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+}
+.items-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.button {
+  background: darkseagreen;
+  border-radius: 20px;
+  padding: 8px 10px;
+  font-size: 20px;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.row {
+  list-style-type: none;
+  font-size: 30px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.item {
+  padding: 5px;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  color: grey;
+}
+
+.item:hover {
+  color: darkorange;
+}

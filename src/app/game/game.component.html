@@ -1,0 +1,43 @@
+<Header><h1>Nim Game</h1></Header>
+<section class="items-wrapper">
+  <ul class="row">
+    <li
+      (click)="handleClick1(i)"
+      class="item"
+      *ngFor="let item of row1; let i = index"
+    >
+      <i class="fas fa-carrot"></i>
+    </li>
+  </ul>
+  <ul class="row">
+    <li
+      (click)="handleClick2(i)"
+      class="item"
+      *ngFor="let item of row2; let i = index"
+    >
+      <i class="fas fa-carrot"></i>
+    </li>
+  </ul>
+  <ul class="row">
+    <li
+      (click)="handleClick3(i)"
+      class="item"
+      *ngFor="let item of row3; let i = index"
+    >
+      <i class="fas fa-carrot"></i>
+    </li>
+  </ul>
+  <ul class="row">
+    <li
+      (click)="handleClick4(i)"
+      class="item"
+      *ngFor="let item of row4; let i = index"
+    >
+      <i class="fas fa-carrot"></i>
+    </li>
+  </ul>
+</section>
+<section class="buttons-wrapper">
+  <div (click)="handleComputerClick()" class="button">Computers turn</div>
+  <div (click)="handleResetClick()" class="button">Reset</div>
+</section>
