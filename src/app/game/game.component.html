@@ -1,37 +1,10 @@
 <Header><h1>Nim Game</h1></Header>
 <section class="items-wrapper">
-  <ul class="row">
+  <ul class="row" *ngFor="let row of rows; let j = index">
     <li
-      (click)="handlePlayerClick(0, i)"
+      (click)="handlePlayerClick(j, i)"
       class="item"
-      *ngFor="let item of items[0]; let i = index"
-    >
-      <i class="fas fa-paperclip"></i>
-    </li>
-  </ul>
-  <ul class="row">
-    <li
-      (click)="handlePlayerClick(1, i)"
-      class="item"
-      *ngFor="let item of items[1]; let i = index"
-    >
-      <i class="fas fa-paperclip"></i>
-    </li>
-  </ul>
-  <ul class="row">
-    <li
-      (click)="handlePlayerClick(2, i)"
-      class="item"
-      *ngFor="let item of items[2]; let i = index"
-    >
-      <i class="fas fa-paperclip"></i>
-    </li>
-  </ul>
-  <ul class="row">
-    <li
-      (click)="handlePlayerClick(3, i)"
-      class="item"
-      *ngFor="let item of items[3]; let i = index"
+      *ngFor="let item of row; let i = index"
     >
       <i class="fas fa-paperclip"></i>
     </li>
@@ -39,6 +12,13 @@
 </section>
 <section class="buttons-wrapper">
   <div class="button">Counter: {{ counter }}</div>
-  <div (click)="handleComputerClick()" class="button">Computers Turn</div>
-  <div (click)="handleReset()" class="button">Reset</div>
+  <div (click)="handleComputerClick()" class="button hover">Computers Turn</div>
+  <div (click)="handleReset()" class="button hover">Reset</div>
+  <app-pop-up class="my-prompt" [isOpen]="popUpOpen">
+    <div>{{ player }} won</div>
+  </app-pop-up>
+  <app-pop-up class="my-prompt" [isOpen]="popUpMoveOpen">
+    <div>{{ textPopUpMove }}</div>
+    <button class="button" (click)="closePopUp()">OK</button>
+  </app-pop-up>
 </section>

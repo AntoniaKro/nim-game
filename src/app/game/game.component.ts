@@ -1,41 +1,43 @@
 import { Component, DoCheck } from '@angular/core';
 
+const COUNTER_START_VALUE = 3;
+const ALERT_TEXT_MOVE = 'The Computer made its move. Now it is your turn';
+
 @Component({
-  selector: 'game-component',
+  selector: 'app-game-component',
   templateUrl: '../game/game.component.html',
-  styleUrls: ['../game/game.component.css']
+  styleUrls: ['../game/game.component.scss']
 })
 export class GameComponent implements DoCheck {
-  items: number[][] = [[1], [1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]];
-  counter: number = 3;
-  player: string = 'You';
-  constructor() {}
+  rows: number[][];
+  counter: number;
+  player: string;
+  popUpOpen: boolean;
+  popUpMoveOpen: boolean;
+  textPopUpMove = ALERT_TEXT_MOVE;
+
+  constructor() {
+    this.reset();
+  }
+
   ngDoCheck() {
-    if ([].concat(...this.items).reduce((acc, curr) => acc + curr) === 1) {
-      window.alert(
-        this.player === 'You' ? 'You won' : 'You lost. The computer won'
-      );
-      this.handleReset();
+    if ([].concat(...this.rows).reduce((acc, curr) => acc + curr) === 1) {
+      this.popUpOpen = true;
+      this.reset();
     } else if (this.counter === 0) {
+      this.popUpMoveOpen = true;
       this.computerTurn();
-      this.counter = 3;
-      window.alert('Computer made move. Your turn');
-    } else {
-      return;
+      this.counter = COUNTER_START_VALUE;
     }
   }
+
   computerTurn() {
-    let row: number = Math.round(Math.random() * 3);
-    let amount: number = Math.round(Math.random() * (3 - 1) + 1);
-    if (
-      this.items[`${row}`].length !== 0 &&
-      this.items[`${row}`].length >= amount
-    ) {
+    const row = Math.round(Math.random() * (this.rows.length - 1));
+    const amount = Math.max(1, Math.round(Math.random() * 3));
+    if (this.rows[row].length !== 0 && this.rows[row].length >= amount) {
       this.player = 'Computer';
-      for (var i = 0; i <= amount; i++) {
-        this.items[`${row}`].pop();
-      }
-      this.counter = 3;
+      this.rows[row] = this.rows[row].slice(0, this.rows[row].length - amount);
+      this.counter = COUNTER_START_VALUE;
     } else {
       this.computerTurn();
     }
@@ -44,21 +46,30 @@ export class GameComponent implements DoCheck {
   handleComputerClick() {
     this.player = 'Computer';
     this.computerTurn();
-    this.counter = 3;
+    this.counter = COUNTER_START_VALUE;
+  }
+
+  reset() {
+    this.player = 'You';
+    this.rows = [[1], [1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]];
+    this.counter = COUNTER_START_VALUE;
+    setTimeout(() => (this.popUpOpen = false), 5000);
   }
 
   handleReset() {
-    this.player = 'You';
-    this.items = [[1], [1, 1, 1], [1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1]];
-    this.counter = 3;
+    this.reset();
   }
 
   handlePlayerClick(row, index) {
     this.player = 'You';
-    this.items[`${row}`] = [
-      ...this.items[`${row}`].slice(0, index),
-      ...this.items[`${row}`].slice(index + 1)
+    this.rows[row] = [
+      ...this.rows[row].slice(0, index),
+      ...this.rows[row].slice(index + 1)
     ];
     this.counter = this.counter - 1;
+  }
+
+  closePopUp() {
+    this.popUpMoveOpen = false;
   }
 }
