@@ -1,24 +1,23 @@
 <Header><h1>Nim Game</h1></Header>
 <section class="items-wrapper">
-  <ul class="row" *ngFor="let row of rows; let j = index">
+  <ul class="row" *ngFor="let row of rows; let j= index">
     <li
       (click)="handlePlayerClick(j, i)"
       class="item"
-      *ngFor="let item of row; let i = index"
-    >
+      *ngFor="let item of row; let i= index">
       <i class="fas fa-paperclip"></i>
     </li>
   </ul>
 </section>
 <section class="buttons-wrapper">
-  <div class="button">Counter: {{ counter }}</div>
-  <div (click)="handleComputerClick()" class="button hover">Computers Turn</div>
-  <div (click)="handleReset()" class="button hover">Reset</div>
+  <div class="button">Moves left: {{ counter }}</div>
+  <div (click)="handleComputerClick()" class="button click">Computers Turn</div>
+  <div (click)="handleReset()" class="button click">Reset</div>
   <app-pop-up class="my-prompt" [isOpen]="popUpOpen">
     <div>{{ player }} won</div>
   </app-pop-up>
   <app-pop-up class="my-prompt" [isOpen]="popUpMoveOpen">
     <div>{{ textPopUpMove }}</div>
-    <button class="button" (click)="closePopUp()">OK</button>
+    <button class="button click" (click)="closePopUp()">OK</button>
   </app-pop-up>
 </section>

@@ -11,18 +11,21 @@
 }
 
 .button {
-  background: steelblue;
-  color: white;
+  border: 2px solid steelblue;
+  color: black;
   border-radius: 20px;
   padding: 8px 10px;
   font-size: 20px;
   width: 200px;
   text-align: center;
 
-  &.hover {
+  &.click {
     cursor: pointer;
+    background: steelblue;
+    color: white;
   }
-  &.hover:hover {
+  &.click:hover {
+    border: 2px solid darkorange;
     background: darkorange;
   }
 }
